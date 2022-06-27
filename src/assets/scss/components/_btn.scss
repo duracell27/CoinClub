@@ -1,0 +1,48 @@
+.btn {
+  display: inline-flex;
+  vertical-align: top;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  outline: 0;
+  margin: 0;
+  border: 0;
+  padding: 0 25px;
+  cursor: pointer;
+  text-align: center;
+  font-family: $fontAvenirNextCyr;
+  height: 60px;
+  transition: 0.3s all ease;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.375;
+  letter-spacing: 1px;
+  border-radius: 4px 0 4px 0;
+
+  &--lg {
+    height: 67px;
+  }
+
+  &--yellow {
+    color: #fff;
+    background: #F6BF4C;
+    box-shadow: 0px 8px 34px #E1B048;
+
+    &:hover {
+      background: darken(#F6BF4C, 10%);
+      box-shadow: 0px 8px 44px #E1B048;
+    }
+  }
+}
+
+@media(max-width: 1440px)  {
+  .btn {
+    height: 48px;
+    font-size: 14px;
+
+    &--lg {
+      height: 54px;
+    }
+  }
+}

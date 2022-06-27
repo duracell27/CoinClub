@@ -1,0 +1,39 @@
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+}
+
+body {
+  min-width: 320px;
+  margin:auto;
+  font-size: 16px;
+  line-height: 1.5;
+  font-family: $fontAvenirNextCyr;
+  background: #141414;
+  color: #fff;
+}
+
+#wrap {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: radial-gradient(60.69% 56.61% at 45.57% 12.67%, #4A4A4A 0%, #000000 100%);
+}
+
+#main {
+  flex: 1;
+  width: 100%;
+  
+  overflow: hidden;
+  position: relative;
+  
+  // min-height: 8954px;
+  // padding-bottom: 384px;
+}

@@ -1,0 +1,46 @@
+.union {
+  padding-top: 118px;
+  padding-bottom: 30px;
+
+  &__title {
+    text-align: center;
+    text-transform: uppercase;
+    margin: 0 0 65px;
+  }
+
+  @media(max-width: 1194px) {
+    $size: 0.9;
+
+    .u-club-slider {
+      margin: round(107px * $size) 0 0;
+
+      .swiper-wrapper {
+        height: 550px;
+        width: 340px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      &__inner {
+        padding: round(49px * $size) 0 0;
+      }
+
+      &__title {
+        margin: 0 0 round(5px * $size);
+        font-size: round(24px * $size);
+      }
+    }
+  }
+
+  @media(max-width: 1024px) {
+
+    .u-club-slider {
+      left: -14px;
+
+      .swiper-slide {
+        width: 330px;
+      }
+    }
+  }
+}
+

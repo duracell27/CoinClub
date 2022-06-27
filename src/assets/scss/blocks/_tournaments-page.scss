@@ -1,0 +1,668 @@
+.tournaments-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &-wrapper {
+    height: 615px;
+    width: 1920px;
+    margin-top: 140px;
+
+    .welcome__inner {
+      padding: 0;
+    }
+
+    .welcome__cont {
+      padding-top: 196px;
+    }
+
+    .welcome__img-w {
+      margin-top: 109px;
+      padding-left: 315px;
+    }
+
+    .welcome__poligon-bg--1 {
+      width: 332px;
+      height: 332px;
+      left: -132px;
+      top: 620px;
+      background: #FFFFFF;
+      mix-blend-mode: normal;
+      opacity: 0.9;
+      border-radius: 100px;
+      transform: rotate(-19deg);
+    }
+
+    .welcome__poligon-bg--2 {
+      width: 120px;
+      height: 120px;
+      left: 110px;
+      top: 586px;
+    }
+
+    .benefits__poligon-bg--3 {
+      width: 315px;
+      height: 340px;
+      top: 40px;
+      right: 665.9px;
+      z-index: 20;
+    }
+
+    .welcome__poligon-bg--4 {}
+  }
+
+  .u-club-filter {
+    margin-top: 64px;
+
+    &__inner {
+      display: flex;
+    }
+
+    &__cont {
+      padding: 0 40px 5px 15px;
+      background: #DEAD45;
+    }
+
+    &__item {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    &__arrow {
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 8px 5px 0 5px;
+      border-color: #000 transparent transparent transparent;
+      display: block;
+      content: '';
+      right: 15px;
+      top: 15px;
+    }
+  }
+
+  .filter {
+    margin-left: auto;
+    position: relative;
+
+    &__selected {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    &__drop {
+      padding-top: 5px;
+      position: absolute;
+      top: 100%;
+      width: 380px;
+      opacity: 0;
+      visibility: hidden;
+      z-index: -1;
+      transform: translate(0, 50px);
+      transition: 0.3s all ease;
+
+      &-inner {
+        background: #ffffff;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2),
+          0px 1px 10px rgba(0, 0, 0, 0.12), 0px 4px 5px rgba(0, 0, 0, 0.14);
+        border-radius: 13px;
+        position: relative;
+        padding: 10px 0;
+        min-height: 50px;
+
+        &:before {
+          position: absolute;
+          left: 20px;
+          bottom: 100%;
+          display: block;
+          content: '';
+          width: 0;
+          height: 0;
+          border-style: solid;
+          border-width: 0 5px 5px 5px;
+          border-color: transparent transparent #fff transparent;
+        }
+      }
+    }
+
+    &:hover {
+      .filter__drop {
+        opacity: 1;
+        visibility: visible;
+        z-index: 200;
+        transform: translate(0, 0);
+      }
+    }
+  }
+
+  .filter-drop-list {
+    padding-left: 14px;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+
+    .tournaments-page-filter {
+      &__item {
+        margin: 5px 10px 10px 0;
+      }
+
+      &__inner {
+        position: relative;
+        cursor: pointer;
+      }
+
+      &__cont {
+        position: relative;
+        background: #e5e5e5;
+        box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+          0px 1px 10px rgba(0, 0, 0, 0.12), 0px 4px 5px rgba(0, 0, 0, 0.14);
+        border-radius: 41px;
+        height: 34px;
+        padding: 0 14px 0 30px;
+        line-height: 34px;
+        font-weight: 600;
+        font-size: 18px;
+        letter-spacing: -0.0293362px;
+        color: #000000;
+        transition: 0.3s background-color ease;
+
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+
+        &-status {
+          width: 14px;
+          height: 14px;
+          border-radius: 100%;
+          border: 1px solid #dead45;
+          position: absolute;
+          top: 50%;
+          left: 9px;
+          margin-top: -7px;
+          transition: 0.3s all ease;
+
+          &:before {
+            width: 8px;
+            height: 8px;
+            border-radius: 100%;
+            display: block;
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -4px 0 0 -4px;
+            background: #000000;
+            transition: 0.3s scale ease, 0.3s opacity ease;
+            opacity: 0;
+            transform: scale(0);
+          }
+        }
+      }
+
+      &__input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+
+        &:checked {
+          &+.tournaments-page-filter__cont {
+            background: #dead45;
+
+            .tournaments-page-filter__cont-status {
+              background: #e5e5e5;
+              border: 1px solid #ffffff;
+
+              &:before {
+                opacity: 1;
+                transform: scale(1);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .table-wrapper::-webkit-scrollbar-thumb {
+    background: #F6BF4C;
+    border-radius: 6px;
+  }
+
+  .table-wrapper::-webkit-scrollbar {
+    width: 7px;
+    height: 0px;
+  }
+
+  .table-wrapper::-webkit-scrollbar-track {
+    background: #424242;
+  }
+
+  .table-wrapper {
+    overflow: scroll;
+    max-height: 670px;
+    width: 95%;
+    margin-top: 140px;
+    overflow-x: hidden;
+    .MuiPaper-root{
+      width: 98%;
+    }
+
+    table {
+      
+      border-collapse: collapse;
+
+      .table-card {
+        display: none;
+      }
+
+      thead {
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 25px;
+        text-transform: uppercase;
+        color: #EBB543;
+      }
+
+      tbody {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 79px;
+        text-align: center;
+        color: #FFFFFF;
+
+        :last-child {
+          td {
+            border-bottom: 0;
+          }
+        }
+      }
+
+      th {
+
+        padding: 0px 0 0px 0;
+
+        span {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 97px;
+
+          .MuiButton-root.MuiButton-Primary{
+            padding: 0;
+          }
+
+          .tss-1h9t3sl-MUIDataTableHeadCell-sortAction{
+            align-items: center;
+          }
+
+          svg.MuiSvgIcon-root{
+            fill: #EBB543
+          }
+
+          .tss-1akey0g-MUIDataTableHeadCell-data {
+            font-family: 'Avenir Next Cyr';
+            font-size: 18px;
+            color: #EBB543;
+            line-height: 25px;
+            font-weight: bold;
+          }
+        }
+      }
+      tr{
+        
+        td{
+          padding: 0;
+          height: 100px;
+          &:nth-child(5){
+            .tss-s52kc4-MUIDataTableBodyCell-root{
+              justify-content: flex-start;
+              margin-left: 20px;
+            }
+          }
+          
+          .tss-s52kc4-MUIDataTableBodyCell-root{
+            display: flex;  
+            align-items: center;
+            justify-content: center;
+            font-family: 'Avenir Next Cyr';
+            font-size: 18px;
+            color: #fff;
+            line-height: 25px;
+            font-weight: 600;
+            
+          }
+
+          .tss-s52kc4-MUIDataTableBodyCell-root.tss-1ej321f-MUIDataTableBodyCell-cellHide{
+            display: none;
+          }
+          
+        }
+      }
+
+      th,
+      td {
+        border-bottom: 2px solid #979797;
+        border-right: 2px solid #979797;
+      }
+
+      td,
+      tr {
+        :first-child {
+          border-right: 0;
+          border-bottom: 0;
+        }
+      }
+
+      .heart {
+        cursor: pointer;
+        
+      }
+
+      .heart.active {
+        color: #EBB543;
+      }
+    }
+  }
+}
+
+@media(max-width: 1840px) {
+  .tournaments-page {
+
+    .table-wrapper {
+      margin-top: 70px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 10px;
+      width: 1600px;
+
+      table {
+        margin-left: 10px;
+      }
+    }
+  }
+}
+
+@media(max-width: 1680px) {
+  .tournaments-page {
+    .table-wrapper {
+      width: 1400px;
+    }
+
+    .welcome__img-w {
+      padding-left: 100px;
+    }
+  }
+}
+
+@media(max-width: 1440px) {
+  .tournaments-page {
+    .table-wrapper {
+      width: 1200px;
+      padding-right: 30px;
+    }
+
+    .welcome__cont {
+      max-width: 500px;
+    }
+
+    .welcome__img-w {
+      padding-left: 50px;
+      margin-top: 126px;
+
+      img {
+        max-width: 650px;
+      }
+    }
+  }
+}
+
+@media(max-width: 1280px) {
+  .tournaments-page {
+    .table-wrapper {
+      width: 1100px;
+
+      table {
+        th {
+          padding: 6px 0 6px 0;
+        }
+      }
+    }
+
+    .welcome__img-w {
+      padding-left: 0;
+    }
+  }
+}
+
+@media(max-width: 1194px) {
+  .tournaments-page {
+    .table-wrapper {
+      width: 1050px;
+
+      table {
+
+        thead,
+        tbody {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
+
+@media(max-width: 1094px) {
+  .tournaments-page {
+    .table-wrapper {
+      width: 850px;
+
+      table {
+
+        thead,
+        tbody {
+          font-size: 14px;
+        }
+
+        .heart {
+          width: 26px;
+          height: 22px;
+          color: #979797;
+          cursor: pointer;
+        }
+
+        .heart.active {
+          width: 26px;
+          height: 22px;
+          color: #EBB543;
+        }
+      }
+    }
+  }
+}
+
+@media(max-width: 890px) {
+  .tournaments-page {
+    .table-wrapper {
+      width: 750px;
+
+      table {
+
+        thead,
+        tbody {
+          font-size: 12px;
+        }
+      }
+    }
+
+    .welcome__poligon-bg--1 {
+      width: 267px;
+      height: 232px;
+      left: -132px;
+      top: 579px;
+    }
+
+    .filter {
+      .u-club-filter__cont {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+@media(max-width: 767px) {
+  .tournaments-page {
+
+    .non-adaptive {
+      display: none;
+    }
+
+    .table-wrapper::-webkit-scrollbar-thumb {
+      visibility: hidden;
+    }
+
+    .table-wrapper::-webkit-scrollbar {
+      visibility: hidden;
+    }
+
+    .table-wrapper::-webkit-scrollbar-track {
+      visibility: hidden;
+    }
+
+    .table-wrapper {
+      width: 460px;
+      padding-left: 0;
+
+
+      table {
+        margin-right: auto;
+
+
+        .time-wrapper {
+          display: flex;
+          padding-left: 180px;
+        }
+
+        .title-wrapper {
+          width: 100%;
+        }
+
+        .table-card {
+          display: block;
+          position: relative;
+          justify-content: flex-start;
+          width: 440px;
+          flex-direction: row;
+          border-top: 2px solid #979797;
+          margin-top: 20px;
+          cursor: pointer;
+
+          .heart {
+            position: absolute;
+            z-index: 20;
+            margin-left: 400px;
+            margin-top: 44px;
+          }
+
+          .wrapper {
+            display: flex;
+            position: relative;
+          }
+
+          .accordion {
+            width: 440px;
+          }
+
+          .overlay {
+            width: 40px;
+            height: 40px;
+          }
+
+          .content {
+            font-size: 18px;
+            text-transform: uppercase;
+            color: #EBB543;
+            overflow: hidden;
+            max-height: 0;
+            transition: all 0.3s;
+
+            .buy-in-usd {
+              padding-left: 6px;
+              margin-top: 20px;
+            }
+
+            .gtd,
+            .clubId,
+            .application,
+            .lateRegistration {
+              padding-top: 6px;
+              padding-left: 6px;
+            }
+
+            :last-child {
+              padding-bottom: 6px;
+            }
+
+            span {
+              color: #FFFFFF;
+            }
+          }
+
+          .content.show {
+            height: auto;
+            max-height: 9999px;
+            transition: all 0.5s cubic-bezier(1, 0, 1, 0);
+          }
+
+          .name {
+            padding-top: 6px;
+            padding-left: 6px;
+            font-size: 16px;
+            border: 0;
+          }
+
+          .type {
+            padding-top: 14px;
+            padding-left: 6px;
+            padding-bottom: 6px;
+            font-size: 16px;
+            border: 0;
+          }
+
+          .date {
+            padding-top: 6px;
+            padding-right: 6px;
+            font-size: 16px;
+            border: 0;
+          }
+
+          .time {
+            padding-top: 6px;
+            padding-right: 16px;
+            font-size: 16px;
+            border: 0;
+          }
+
+          .buy-in-usd,
+          .gtd,
+          .clubId,
+          .application,
+          .lateRegistration {
+            border: 0;
+          }
+        }
+
+        td {
+          padding: 0 4px 0 4px;
+        }
+      }
+    }
+  }
+}
