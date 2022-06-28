@@ -98,7 +98,7 @@ const CustomCheckbox = (props) => {
   }
 };
 
-const TournamentTable2 = () => {
+const TournamentTable2 = ({dataFilter, formatFilter, appFilter}) => {
   const columns = React.useMemo(() => [
     {
       name: '',
@@ -161,6 +161,12 @@ const TournamentTable2 = () => {
     );
   }, []);
 
+  
+  console.log('DATAFILTER', dataFilter);
+  console.log('FORMATFILTER', formatFilter);
+  console.log('APPFILTER', appFilter);
+  
+
   const options = {
     search: false,
     searchable: false,
@@ -179,6 +185,10 @@ const TournamentTable2 = () => {
     }
   };
   const tournaments = Array.from(data);
+  console.log('tournamets', tournaments);
+  // const filteredTournaments = tournaments.filter((tournamentsItem)=>{
+    
+  // })
   return (
     <ThemeProvider theme={theme}>
       <MUIDataTable
