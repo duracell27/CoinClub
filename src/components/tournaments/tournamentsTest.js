@@ -24,7 +24,7 @@ const theme = createTheme({
         root: {
           backgroundColor: '#ffffff00',
           color: '#fff',
-          
+
         }
       }
     },
@@ -63,7 +63,7 @@ const theme = createTheme({
           '&:nth-child(10)': {
             width: '21%'
           },
-        
+
         }
       }
     },
@@ -98,7 +98,23 @@ const CustomCheckbox = (props) => {
   }
 };
 
-const TournamentTable2 = ({dataFilter, formatFilter, appFilter}) => {
+const makePreFilteredArray = (filteredObj, data, filterType) => {
+  for (let key in filteredObj) {
+    let filteredTournaments
+    if (filteredObj[key] === true) {
+      filteredTournaments = data.filter((dataItem) => {
+        return dataItem[filterType] === key
+      })
+    }
+    if (filteredTournaments) {
+      return filteredTournaments
+    }else{
+      return null
+    }
+  }
+}
+
+const TournamentTable2 = ({ dataFilter, formatFilter, appFilter }) => {
   const columns = React.useMemo(() => [
     {
       name: '',
@@ -161,11 +177,11 @@ const TournamentTable2 = ({dataFilter, formatFilter, appFilter}) => {
     );
   }, []);
 
-  
+
   console.log('DATAFILTER', dataFilter);
   console.log('FORMATFILTER', formatFilter);
   console.log('APPFILTER', appFilter);
-  
+
 
   const options = {
     search: false,
@@ -185,19 +201,42 @@ const TournamentTable2 = ({dataFilter, formatFilter, appFilter}) => {
     }
   };
   const tournaments = Array.from(data);
-  console.log('tournamets', tournaments);
-  // const filteredTournaments = tournaments.filter((tournamentsItem)=>{
-    
-  // })
+  let filteredTournaments = [];
+  // format filter
+  filteredTournaments.push(...makePreFilteredArray(formatFilter, tournaments, 'type'))
+  // for (let key in formatFilter) {
+  //   let filteredTournaments1
+  //   if (formatFilter[key] === true) {
+  //     filteredTournaments1 = data.filter((dataItem) => {
+  //       return dataItem.type === key
+  //     })
+  //   }
+  //   if (filteredTournaments1) {
+  //     return
+  //   }
+  // }
+  // end format filter
+  // filteredTournaments.push(...filteredTournaments1)
+  // app filter
+
+  // let filteredTournaments2 = []
+  // for (let key in appFilter) {
+  //   if (appFilter[key] === true) {
+  //     filteredTournaments2 = filteredTournaments.filter((dataItem) => {
+  //       return dataItem.application === key
+  //     })
+  //   }
+  // }
+  // app format filter
   return (
     <ThemeProvider theme={theme}>
       <MUIDataTable
-        data={tournaments}
+        data={filteredTournaments.length ? filteredTournaments : tournaments}
         columns={columns}
         options={options}
-        // components={{
-        //   Checkbox: CustomCheckbox
-        // }}
+      // components={{
+      //   Checkbox: CustomCheckbox
+      // }}
       />
     </ThemeProvider>
   );
