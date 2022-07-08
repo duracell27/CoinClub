@@ -162,10 +162,9 @@ const TournamentTable2 = ({ dataFilter, formatFilter, appFilter }) => {
   }, []);
 
 
-  // console.log('DATAFILTER', dataFilter);
-  // console.log('FORMATFILTER', formatFilter);
-  // console.log('APPFILTER', appFilter);
-
+  console.log('DATAFILTER', dataFilter);
+  console.log('FORMATFILTER', formatFilter);
+  console.log('APPFILTER', appFilter);
 
   const options = {
     search: false,
@@ -189,13 +188,7 @@ const TournamentTable2 = ({ dataFilter, formatFilter, appFilter }) => {
 
   // time filter
   let filteredTournamentsAll = [];
-  // console.log('data', new Date())
-  // const year = tournaments[0].data.slice(6, 10)
-  // const month = tournaments[0].data.slice(3, 5)
-  // const day = tournaments[0].data.slice(0, 2)
-  // console.log('data1', new Date(year, month - 1, day))
-  // const minus = new Date() - new Date(year, month - 1, day)
-  // console.log('minus', minus / 1000)
+
   for (let key in dataFilter) {
     let filteredTournaments0
     if (dataFilter[key] === true) {
@@ -203,17 +196,13 @@ const TournamentTable2 = ({ dataFilter, formatFilter, appFilter }) => {
         const year = dataItem.data.slice(6, 10)
         const month = dataItem.data.slice(3, 5)
         const day = dataItem.data.slice(0, 2)
-        const tournamentData = new Date(year, month - 1, day) 
+        const tournamentData = new Date(year, month - 1, day)
         const timeToTournament = ((tournamentData - new Date()) / 1000) + 86399
 
         const now = new Date();
         const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
 
         const timeToTomorrow = (tomorrow - now) / 1000;
-
-        // console.log('timeToTomorrow', timeToTomorrow)
-        // console.log('timeToTournament', timeToTournament)
-        // console.log('item', dataItem.name)
 
         if (key === 'today' && timeToTournament > 0 && timeToTournament < timeToTomorrow) {
           return 1
@@ -260,12 +249,62 @@ const TournamentTable2 = ({ dataFilter, formatFilter, appFilter }) => {
     }
   }
 
+  const isActiveFilter = (obj) => {
+    for (let key in obj) {
+      if (obj[key] === true) {
+        return true;
+      }
+    }
+  }
+  const activeFilterCount = () => {
+    let rezult = 0
+    isActiveFilter(dataFilter) && rezult++;
+    isActiveFilter(formatFilter) && rezult++;
+    isActiveFilter(appFilter) && rezult++;
+    return rezult
+  }
+
+  console.log('activeFilterCount', activeFilterCount())
 
   console.log('filteredTournamentsAll', filteredTournamentsAll)
+
+  const notUnic = (arr) => {
+    let idsArr = [];
+    for (let key in arr) {
+      idsArr.push(arr[key].id)
+    }
+    let result = {};
+    idsArr.forEach(function (a) {
+      result[a] = result[a] + 1 || 1;
+    });
+    idsArr = []
+    const activeFilters = activeFilterCount()
+    for (let key in result) {
+      if(result[key] === activeFilters){
+        idsArr.push(key)
+      }
+    }
+    return idsArr;
+  }
+  const ids = notUnic(filteredTournamentsAll)
+
+  const shos = (arr) => {
+    let buff=[]
+    let result = arr.filter((e)=>{
+      if(ids.includes(e.id) && !buff.includes(e.id)){
+        buff.push(e.id)
+        return e
+      }
+    })
+    return result
+  }
+  let filteredTournamentsAll1 = shos(filteredTournamentsAll)
+
+  console.log('filteredTournamentsAll1', filteredTournamentsAll1)
   return (
     <ThemeProvider theme={theme}>
       <MUIDataTable
-        data={filteredTournamentsAll.length ? filteredTournamentsAll : tournaments}
+        data={filteredTournamentsAll1.length ? filteredTournamentsAll1 : tournaments}
         columns={columns}
         options={options}
       // components={{
