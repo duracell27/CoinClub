@@ -82,29 +82,19 @@ const theme = createTheme({
           display: 'none'
         }
       }
-    }
+    },
+    
   }
 });
 
-const CustomCheckbox = (props) => {
-  let newProps = Object.assign({}, props);
-  newProps.color =
-    props['data-description'] === 'row-select' ? 'secondary' : 'primary';
-
-  if (props['data-description'] === 'row-select') {
-    return <Radio {...newProps} />;
-  } else {
-    return <Checkbox {...newProps} />;
-  }
-};
 
 const TournamentTable2 = ({ dataFilter, formatFilter, appFilter }) => {
   const columns = React.useMemo(() => [
     {
-      name: '',
+      name: 'id', // do not change(likes stop working)
       label: '',
       options: {
-        customBodyRender: (props) => <AddFavourites />
+        customBodyRender: (value) => <AddFavourites id={value} />
       }
     },
     {
@@ -141,7 +131,7 @@ const TournamentTable2 = ({ dataFilter, formatFilter, appFilter }) => {
     },
     {
       name: 'lateRegistration',
-      label: 'Late Registration:'
+      label: 'Late Registration'
     }
   ]);
 
@@ -155,16 +145,10 @@ const TournamentTable2 = ({ dataFilter, formatFilter, appFilter }) => {
         header: true,
         complete: (results) => {
           setData(results.data);
-          console.log(results.data);
         }
       }
     );
   }, []);
-
-
-  console.log('DATAFILTER', dataFilter);
-  console.log('FORMATFILTER', formatFilter);
-  console.log('APPFILTER', appFilter);
 
   const options = {
     search: false,
@@ -176,17 +160,22 @@ const TournamentTable2 = ({ dataFilter, formatFilter, appFilter }) => {
     fixedSelectColumn: false,
     selectableRowsHeader: false,
     selectableRowsHideCheckboxes: true, // TUT
-    selectableRowsOnClick: true,
+    selectableRowsOnClick: false,
     rowsPerPage: 50,
     filterType: {
       customFilterListOptions: () => {
         return <div>hui</div>;
       }
+    },
+    textLabels: {
+      body: {
+        noMatch: 'Нічого не знайдено',
+      }
     }
   };
   const tournaments = Array.from(data);
 
-  // time filter
+  // START FILTER
   let filteredTournamentsAll = [];
 
   for (let key in dataFilter) {
@@ -264,10 +253,6 @@ const TournamentTable2 = ({ dataFilter, formatFilter, appFilter }) => {
     return rezult
   }
 
-  console.log('activeFilterCount', activeFilterCount())
-
-  console.log('filteredTournamentsAll', filteredTournamentsAll)
-
   const notUnic = (arr) => {
     let idsArr = [];
     for (let key in arr) {
@@ -298,13 +283,17 @@ const TournamentTable2 = ({ dataFilter, formatFilter, appFilter }) => {
     })
     return result
   }
+  const activeFilters = activeFilterCount()
   let filteredTournamentsAll1 = shos(filteredTournamentsAll)
+  console.log('final array',filteredTournamentsAll1)
+   // END FILTER
 
-  console.log('filteredTournamentsAll1', filteredTournamentsAll1)
+  // localStorage.setItem('userLikedTournaments',)
+
   return (
     <ThemeProvider theme={theme}>
       <MUIDataTable
-        data={filteredTournamentsAll1.length ? filteredTournamentsAll1 : tournaments}
+        data={filteredTournamentsAll1.length || activeFilters > 0 ? filteredTournamentsAll1 : tournaments}
         columns={columns}
         options={options}
       // components={{

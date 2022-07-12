@@ -1,11 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const AddToFavourites = () => {
+const AddToFavourites = ({ id }) => {
   const [isActive, setActive] = useState(false);
 
   const toggleCell = () => {
     setActive(!isActive);
   }
+  
+  // work with localStorage
+  
+
+  useEffect(() => {
+    const storageData = JSON.parse(localStorage.getItem('userLikedTournaments'))
+    if (storageData?.likedTournaments.includes(id)) {
+      setActive(true)
+    }
+  }, [])
+
+  useEffect(() => {
+    if(!isActive){
+      const storageData = JSON.parse(localStorage.getItem('userLikedTournaments'))
+      if (storageData?.likedTournaments.includes(id)) {
+        const newLike = storageData.likedTournaments.filter((e)=> e !== id)
+        storageData.likedTournaments = newLike
+        localStorage.setItem('userLikedTournaments', JSON.stringify(storageData))
+      }
+    }
+    if (isActive) {   
+      if (localStorage.getItem('userLikedTournaments') === null) {  
+        const userLikedTournaments = {
+          userId: 12345678,
+          likedTournaments: []
+        }
+        userLikedTournaments.likedTournaments.push(id)
+        localStorage.setItem('userLikedTournaments', JSON.stringify(userLikedTournaments))
+      }else{
+        const storageData = JSON.parse(localStorage.getItem('userLikedTournaments'))
+        if (!storageData?.likedTournaments.includes(id)) {
+          storageData.likedTournaments.push(id)
+          localStorage.setItem('userLikedTournaments', JSON.stringify(storageData))
+        }
+      }
+    }
+  },[toggleCell])
+// END work with localStorage
 
   return (
     <div onClick={() => toggleCell()} className="heart">
