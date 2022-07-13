@@ -12,12 +12,14 @@ const AddToFavourites = ({ id }) => {
 
   useEffect(() => {
     const storageData = JSON.parse(localStorage.getItem('userLikedTournaments'))
+    
     if (storageData?.likedTournaments.includes(id)) {
       setActive(true)
     }
   }, [])
 
   useEffect(() => {
+    // console.log('toggle pressed')
     if(!isActive){
       const storageData = JSON.parse(localStorage.getItem('userLikedTournaments'))
       if (storageData?.likedTournaments.includes(id)) {
@@ -27,6 +29,7 @@ const AddToFavourites = ({ id }) => {
       }
     }
     if (isActive) {   
+      // console.log('я виконалась id', id)
       if (localStorage.getItem('userLikedTournaments') === null) {  
         const userLikedTournaments = {
           userId: 12345678,
@@ -42,11 +45,11 @@ const AddToFavourites = ({ id }) => {
         }
       }
     }
-  },[toggleCell])
+  },[isActive])
 // END work with localStorage
 
   return (
-    <div onClick={() => toggleCell()} className="heart">
+    <div onClick={toggleCell} className="heart">
       <svg
         width="28"
         height="21"

@@ -83,7 +83,7 @@ const theme = createTheme({
         }
       }
     },
-    
+
   }
 });
 
@@ -136,6 +136,9 @@ const TournamentTable2 = ({ dataFilter, formatFilter, appFilter }) => {
   ]);
 
   const [data, setData] = useState({});
+  const [dataTable, setDataTable] = useState([]);
+  const [tournaments, setTournaments] = useState([]);
+  //const [filteredTournamentsAll, setFilteredTournamentsAll] = useState([]);
 
   useEffect(() => {
     Papa.parse(
@@ -145,10 +148,14 @@ const TournamentTable2 = ({ dataFilter, formatFilter, appFilter }) => {
         header: true,
         complete: (results) => {
           setData(results.data);
+
         }
       }
     );
   }, []);
+  useEffect(() => {
+    setTournaments([...Array.from(data)])
+  }, [data])
 
   const options = {
     search: false,
@@ -173,7 +180,7 @@ const TournamentTable2 = ({ dataFilter, formatFilter, appFilter }) => {
       }
     }
   };
-  const tournaments = Array.from(data);
+
 
   // START FILTER
   let filteredTournamentsAll = [];
@@ -206,6 +213,9 @@ const TournamentTable2 = ({ dataFilter, formatFilter, appFilter }) => {
       })
     }
     if (filteredTournaments0) {
+      // setFilteredTournamentsAll((prev)=>{
+      //   return [...prev, ...filteredTournaments0]
+      // })
       filteredTournamentsAll.push(...filteredTournaments0)
     }
   }
@@ -220,6 +230,9 @@ const TournamentTable2 = ({ dataFilter, formatFilter, appFilter }) => {
       })
     }
     if (filteredTournaments1) {
+      // setFilteredTournamentsAll((prev)=>{
+      //   return [...prev, ...filteredTournaments1]
+      // })
       filteredTournamentsAll.push(...filteredTournaments1)
     }
   }
@@ -234,6 +247,9 @@ const TournamentTable2 = ({ dataFilter, formatFilter, appFilter }) => {
       })
     }
     if (filteredTournaments2) {
+      // setFilteredTournamentsAll((prev)=>{
+      //   return [...prev, ...filteredTournaments2]
+      // })
       filteredTournamentsAll.push(...filteredTournaments2)
     }
   }
@@ -265,7 +281,7 @@ const TournamentTable2 = ({ dataFilter, formatFilter, appFilter }) => {
     idsArr = []
     const activeFilters = activeFilterCount()
     for (let key in result) {
-      if(result[key] === activeFilters){
+      if (result[key] === activeFilters) {
         idsArr.push(key)
       }
     }
@@ -274,9 +290,9 @@ const TournamentTable2 = ({ dataFilter, formatFilter, appFilter }) => {
   const ids = notUnic(filteredTournamentsAll)
 
   const shos = (arr) => {
-    let buff=[]
-    let result = arr.filter((e)=>{
-      if(ids.includes(e.id) && !buff.includes(e.id)){
+    let buff = []
+    let result = arr.filter((e) => {
+      if (ids.includes(e.id) && !buff.includes(e.id)) {
         buff.push(e.id)
         return e
       }
@@ -284,16 +300,22 @@ const TournamentTable2 = ({ dataFilter, formatFilter, appFilter }) => {
     return result
   }
   const activeFilters = activeFilterCount()
+
   let filteredTournamentsAll1 = shos(filteredTournamentsAll)
-  console.log('final array',filteredTournamentsAll1)
-   // END FILTER
-
-  // localStorage.setItem('userLikedTournaments',)
-
+  // console.log('final array',filteredTournamentsAll1)
+  // END FILTER
+  useEffect(() => {
+    setDataTable([...filteredTournamentsAll1])
+    if(activeFilters === 0){
+      setTournaments([...Array.from(data)])
+    }
+  }, [activeFilters, dataFilter, formatFilter, appFilter])
+  
+  
   return (
     <ThemeProvider theme={theme}>
       <MUIDataTable
-        data={filteredTournamentsAll1.length || activeFilters > 0 ? filteredTournamentsAll1 : tournaments}
+        data={dataTable.length || activeFilters > 0 ? dataTable : tournaments}
         columns={columns}
         options={options}
       // components={{
